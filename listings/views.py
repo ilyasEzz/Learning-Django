@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Listings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -14,13 +14,19 @@ def index(request):
     paged_listings = paginator.get_page(page)
 
     context = {'listings': paged_listings}
-
     return render(request, 'listings/listings.html', context)
 
 
 def listing(request, listing_id):
-    # see listings.html
-    return render(request, 'listings/listing.html')
+    # get_object_or_404: Returns the object matching the given lookup parameters, like the "get()" method 
+    # ( "pk": primary key ): given as a parameter of path() in urls.py '<int:listing_id>'
+    # but it raises Http404 instead of the model’s DoesNotExist exception
+    listing = get_object_or_404(Listings, pk=listing_id)
+    
+    context = {
+        'listing': listing
+    }   
+    return render(request, 'listings/listing.html', context)
 
 
 def search(request):
