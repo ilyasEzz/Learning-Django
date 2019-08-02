@@ -2,11 +2,17 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from listings.models import Listings
 from realtors.models import Realtor
+from listings.choices import bedroom_choices, price_choices
 
 
 def index(request):
-    listing_view = Listings.objects.order_by('-list_date').filter(is_published=True)[:3]
-    context = {'listings': listing_view}
+    listing_view = Listings.objects.order_by(
+        '-list_date').filter(is_published=True)[:3]
+    context = {
+        'listings': listing_view,
+        'bedroom_choices': bedroom_choices,
+        'price_choices': price_choices
+    }
 
     return render(request, 'pages/index.html', context)
 
