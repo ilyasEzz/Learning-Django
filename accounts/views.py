@@ -31,6 +31,12 @@ def dashboard(request):
     return render(request, 'accounts/dashboard.html')
 
 
+def logout(request):
+    if request.method == 'POST':
+        auth.logout(request)
+        messages.success(request, "You had been Logged out!")
+        return redirect('index')
+
 def register(request):
     # Get form values
     if request.method == 'POST':
