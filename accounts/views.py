@@ -6,11 +6,29 @@ from django.contrib.auth.models import User
 
 
 def login(request):
-    return render(request, 'accounts/login.html')
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        # authentification
+        user = auth.authenticate(username=username, password=password)
+
+        # if user is in the Database
+        if user is not None:
+            auth.login(request, user)
+            messages.success(request, 'You are loged in!')
+            return redirect('dashboard')
+        # user not Found
+        else:
+            messages.error(request, "Invalid credentials!")
+            return redirect('login')
+
+    # accessing the login page
+    else:
+        return render(request, 'accounts/login.html')
 
 
-def dashbord(request):
-    return render(request, 'accounts/dashbord.html')
+def dashboard(request):
+    return render(request, 'accounts/dashboard.html')
 
 
 def register(request):
@@ -22,28 +40,29 @@ def register(request):
         email = request.POST['email']
         password = request.POST['password']
         password2 = request.POST['password2']
-    
+
         if password == password2:
             # if user already exists
-            if User.objects.filter(username = username).exists():
+            if User.objects.filter(username=username).exists():
                 messages.error(request, "This user already exists")
                 return redirect('register')
-            
+
             else:
                 # if email already used
-                if User.objects.filter(email = email).exists():
+                if User.objects.filter(email=email).exists():
                     messages.error(request, "This email is being used.")
                     return redirect('register')
                 # registration successfull!
                 else:
                     # create user
-                    user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name,last_name=last_name)
+                    user = User.objects.create_user(
+                        username=username, password=password, email=email, first_name=first_name, last_name=last_name)
                     user.save()
                     # Login after registration
                     auth.login(request, user)
                     messages.success(request, "You are now logged in")
                     return redirect('index')
-        
+
         else:
             # if passwords do not matchs
             messages.error(request, "Passwords do not match")
