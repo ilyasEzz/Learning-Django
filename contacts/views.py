@@ -20,6 +20,12 @@ def contact(request):
 
         messages.success(request, 'Your request has been submitted')
 
+        if request.user.is_authenticated:
+            has_contacted = Contact.objects.all().filter(user_id=user_id, listing_id=listing_id)
+            if has_contacted:
+                messages.error(request, "You have already submitted!")
+                print("You have already submited")
+
         return redirect('/listings/'+listing_id)
 
 
