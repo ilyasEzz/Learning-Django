@@ -170,7 +170,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form>
+              <form action="{% url 'contact' %}" method="POST">
                 {% csrf_token %}
                 {% if user.is_authenticated %}
                 <input type="hidden" name="user_id" value="{{ user.id }}">
@@ -181,7 +181,7 @@
                 <input type="hidden" name="listing_id" value="{{ listing.id }}">
                 <div class="form-group">
                   <label for="property_name" class="col-form-label">Property:</label>
-                  <input type="text" name="listing" class="form-control" value="45 Drivewood Cirlce" disabled>
+                  <input type="text" name="listing" class="form-control" value="{{ listing.title }}" >
                 </div>
                 <div class="form-group">
                   <label for="name" class="col-form-label">Name:</label>
@@ -208,7 +208,7 @@
                   <textarea name="message" class="form-control"></textarea>
                 </div>
                 <hr>
-                <input type="submit" value="Send" class="btn btn-block btn-secondary">
+                <input type="submit" value="Send"   class="btn btn-block btn-secondary">
               </form>
             </div>
           </div>
