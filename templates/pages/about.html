@@ -8,8 +8,7 @@
     <div class="container">
         <div class="row text-center">
             <div class="col-md-12">
-                <h1 class="display-4">About BT Real Estate</h1>
-                <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur!</p>
+                <h1 class="display-4">О компаний "ВТомске"</h1>
             </div>
         </div>
     </div>
@@ -22,9 +21,9 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="index.html">
-                        <i class="fas fa-home"></i> Home</a>
+                        <i class="fas fa-home"></i> Главная</a>
                 </li>
-                <li class="breadcrumb-item active"> About</li>
+                <li class="breadcrumb-item active"> О компаний</li>
             </ol>
         </nav>
     </div>
@@ -34,7 +33,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <h2>We Search For The Perfect Home</h2>
+                <h2>Мы находим для вас лучшее дома</h2>
                 <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur!</p>
                 <img src="{% static 'img/about.jpg' %}" alt="">
                 <p class="mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis esse officia
@@ -48,12 +47,9 @@
                 <div class="card">
                     <img class="card-img-top" src="{{ realtor.photo.url }}" alt="Seller of the month">
                     <div class="card-body">
-                        <h5 class="card-title">Seller Of The Month</h5>
+                        <h5 class="card-title">Топ риэлтор</h5>
                         <h6 class="text-secondary">{{ realtor.name }}</h6>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis nesciunt
-                            amet, illo itaque similique repellat.
-                            content.
-                        </p>
+                        <p class="card-text">Энергичный и инициативный, стремится к постоянному обучению </p>
                     </div>
                 </div>
             </div>
@@ -64,16 +60,16 @@
 
 <!-- Work -->
 <section id="work" class="bg-dark text-white text-center">
-    <h2 class="display-4">We Work For You</h2>
+    <h2 class="display-4">Мы работемь для вас</h2>
     <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem velit aperiam, unde aliquid at similique!</h4>
     <hr>
-    <a href="{% url 'listings' %}" class="btn btn-secondary text-white btn-lg">View Our Featured Listings</a>
+    <a href="{% url 'listings' %}" class="btn btn-secondary text-white btn-lg">Посмотреть котолог</a>
 </section>
 
 <!-- Team -->
 <section id="team" class="py-5">
     <div class="container">
-        <h2 class="text-center">Our Team</h2>
+        <h2 class="text-center">Наша команда</h2>
         <div class="row text-center">
             {% if realtors %}
             {% for realtor in realtors %}
@@ -81,7 +77,7 @@
                 <img src="{{ realtor.photo.url }}" alt="" class="rounded-circle mb-3">
                 <h4>{{ realtor.name }}</h4>
                 <p class="text-success">
-                    <i class="fas fa-award text-success mb-3"></i> Realtor</p>
+                    <i class="fas fa-award text-success mb-3"></i> Риэлтор</p>
                 <hr>
                 <p>
                     <i class="fas fa-phone"></i> {{ realtor.phone }}</p>
@@ -90,7 +86,7 @@
             </div>
             {% endfor %}
             {% else %}
-            <p class="lead">No realtors available</p>
+            <p class="lead">Нет доступных риэлторов</p>
             {% endif %}
         </div>
     </div>

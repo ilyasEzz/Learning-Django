@@ -7,8 +7,7 @@
     <div class="container">
         <div class="row text-center">
             <div class="col-md-12">
-                <h1 class="display-4">User Dashboard</h1>
-                <p class="lead">Manage your BT Real Estate account</p>
+                <h1 class="display-4">Панель Управления</h1>
             </div>
         </div>
     </div>
@@ -21,9 +20,9 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="{% url 'index' %}">
-                        <i class="fas fa-home"></i> Home</a>
+                        <i class="fas fa-home"></i> Главная</a>
                 </li>
-                <li class="breadcrumb-item active"> Dashboard</li>
+                <li class="breadcrumb-item active"> мой Дом</li>
             </ol>
         </nav>
     </div>
@@ -34,14 +33,14 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2>Welcome {{user.username}}</h2>
+                <h2>Здравствуйте {{user.username}}</h2>
                 {% if contacts %}
-                <p>Here are the property listings that you have inquired about</p>
+                <p>Вот списки недвижимости, о которых вы спрашивали</p>
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Property</th>
+                            <th scope="col">Дом</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -51,14 +50,15 @@
                             <td>{{ contact.id}}</td>
                             <td>{{ contact.listing }}</td>
                             <td>
-                                <a class="btn btn-light" href="{% url 'listing' contact.listing_id %}">View Listing</a>
+                                <a class="btn btn-light" href="{% url 'listing' contact.listing_id %}">Посмотреть
+                                    объявления</a>
                             </td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
                 {% else %}
-                <p>You haven't made any inqueries</p>
+                <p>Вы не сделали никаких запросов</p>
                 {% endif %}
             </div>
         </div>

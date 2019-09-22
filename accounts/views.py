@@ -1,9 +1,32 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
+#  needed for sending emails
+from django.core.mail import send_mail
+from django.conf.global_settings import DEFAULT_FROM_EMAIL
+from django.template.loader import get_template
+
 from contacts.models import Contact
 
-# Create your views here.
+
+def validation_email(username):
+    subject = f'Активация пользователя { username }'
+    from_email = DEFAULT_FROM_EMAIL
+    recipient_list = [DEFAULT_FROM_EMAIL]
+
+    context = {'username': username}
+    validation_message = ''' 
+    Уважаемый пользователь:
+
+    Вы зарегистрировались на сайте "ВТомске".
+    Вам необходимо выполнить активацию, чтобы подтвердить свою личность.
+    Для этого пройдите, пожалуйста, по ссылке
+
+
+    До свидания!
+    С уважением, администрация сайта. '''
+
+    return send_mail(subject, validation_message, from_email, recipient_list, fail_silently=True)
 
 
 def login(request):
@@ -16,11 +39,12 @@ def login(request):
         # if user is in the Database
         if user is not None:
             auth.login(request, user)
-            messages.success(request, 'You are loged in!')
+            messages.success(request, 'Вы зарегистрированны!')
+            # validation_email(user)
             return redirect('dashboard')
         # user not Found
         else:
-            messages.error(request, "Invalid credentials!")
+            messages.error(request, "'Введенные данны не совпадают")
             return redirect('login')
 
     # accessing the login page
@@ -29,7 +53,8 @@ def login(request):
 
 
 def dashboard(request):
-    user_contacts = Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)
+    user_contacts = Contact.objects.order_by(
+        '-contact_date').filter(user_id=request.user.id)
 
     context = {
         'contacts': user_contacts
@@ -41,8 +66,9 @@ def dashboard(request):
 def logout(request):
     if request.method == 'POST':
         auth.logout(request)
-        messages.success(request, "You had been Logged out!")
+        messages.success(request, "Вы вышли")
         return redirect('index')
+
 
 def register(request):
     # Get form values
@@ -57,13 +83,13 @@ def register(request):
         if password == password2:
             # if user already exists
             if User.objects.filter(username=username).exists():
-                messages.error(request, "This user already exists")
+                messages.error(request, "Этот пользователь уже существует.")
                 return redirect('register')
 
             else:
                 # if email already used
                 if User.objects.filter(email=email).exists():
-                    messages.error(request, "This email is being used.")
+                    messages.error(request, "Эту почту уже использувают.")
                     return redirect('register')
                 # registration successfull!
                 else:
@@ -74,6 +100,8 @@ def register(request):
                     # Login after registration
                     auth.login(request, user)
                     messages.success(request, "You are now logged in")
+
+                    validation_email(username)
                     return redirect('index')
 
         else:

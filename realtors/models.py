@@ -14,3 +14,7 @@ class Realtor(models.Model):
     # display the title in the  admin table
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "Риэльтор"
+        verbose_name_plural = "Риэльторы"

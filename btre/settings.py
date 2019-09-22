@@ -32,18 +32,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.admin',
     'accounts.apps.AccountsConfig',
     'listings.apps.ListingsConfig',
     'realtors.apps.RealtorsConfig',
     'contacts.apps.ContactsConfig',
     'pages.apps.PagesConfig',
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -113,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -146,4 +147,19 @@ MEDIA_URL = '/media/'
 # Messages
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
+    messages.SUCCESS: 'success',
 }
+
+# Email settings: https://app.sendgrid.com
+# SEND_GRID_API_KEY = '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'
+#EMAIL_HOST_USER = 'noikis'
+#EMAIL_HOST_PASSWORD = 'ezzil1997'
+# DEFAULT_FROM_EMAIL = 'ezzil1997@gmail.com'
+# ACCOUNT_EMAIL_SUBJECT_PREFIX = 'Подтверждение по электронной почте:\n Вы зарегистрированы в сайте ВТомске!'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = 'ezzil1997@gmail.com'
+EMAIL_HOST_PASSWORD = 'sunegozyyinjwdlw'
