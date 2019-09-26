@@ -26,11 +26,23 @@
 
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
-                <li {% if 'dashboard' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3"
-                    {% endif %}>
-                    <a class="nav-link" href="{% url 'dashboard' %}">
-                        Мой Дом
+                <li class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Панель Управления
                     </a>
+                    <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenu">
+                        <a class="bg-primary dropdown-item nav-link text-center" href="{% url 'dashboard' %}">
+                            Мой Дом
+                        </a>
+                        <a class="bg-primary dropdown-item nav-link text-center" href="{% url 'password_reset' %}">
+                            Забыл Пароль
+                        </a>
+                        <a class="bg-primary dropdown-item nav-link text-center" href="{% url 'delete_account' %}">
+                            Удалить Аккаунт
+                        </a>
+                    </div>
+
                 </li>
                 <li class="nav-item mr-3">
                     <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">
@@ -41,11 +53,7 @@
                         <input type="hidden">
                     </form>
                 </li>
-                <li {% if 'password_reset' in request.path %} class="nav-item active mr-3" {% else %}
-                    class="nav-item mr-3" {% endif %}>
-                    <a class="nav-link" href="{% url 'password_reset' %}">
-                        <i class="fas fa-user-plus"></i>Забыл Пароль</a>
-                </li>
+
                 {% else %}
                 <li {% if 'register' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3"
                     {% endif %}>

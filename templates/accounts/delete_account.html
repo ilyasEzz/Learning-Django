@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block title %} Удаление аккаунта {% endblock %}
+
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h1 class="display-4">Удаление аккаунта </h1>
+            </div>
+
+        </div>
+</section>
+
+<div class="container">
+    <h2 class="mt-4">Удалить аккаунт? {{ object.username }}</h2>
+    <p class="lead">
+        Удаление этого аккаунта приведет к потере всех связанных с ним сообщений, контактов и
+        других данных.
+    </p>
+    <form method="post">
+        {% csrf_token %}
+        {% buttons submit='Удалить' %} {% endbuttons %}
+    </form>
+</div>
+
+{% endblock %}

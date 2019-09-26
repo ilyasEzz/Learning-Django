@@ -9,26 +9,6 @@ from django.template.loader import get_template
 from contacts.models import Contact
 
 
-def validation_email(username):
-    subject = f'Активация пользователя { username }'
-    from_email = DEFAULT_FROM_EMAIL
-    recipient_list = [DEFAULT_FROM_EMAIL]
-
-    context = {'username': username}
-    validation_message = ''' 
-    Уважаемый пользователь:
-
-    Вы зарегистрировались на сайте "ВТомске".
-    Вам необходимо выполнить активацию, чтобы подтвердить свою личность.
-    Для этого пройдите, пожалуйста, по ссылке
-
-
-    До свидания!
-    С уважением, администрация сайта. '''
-
-    return send_mail(subject, validation_message, from_email, recipient_list, fail_silently=True)
-
-
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -40,7 +20,6 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             messages.success(request, 'Вы зарегистрированны!')
-            # validation_email(user)
             return redirect('dashboard')
         # user not Found
         else:
@@ -68,6 +47,15 @@ def logout(request):
         auth.logout(request)
         messages.success(request, "Вы вышли")
         return redirect('index')
+
+
+def delete_account(request):
+    user = request.user
+    if request.method == 'POST' and user.is_authenticated and user.username is not 'ilyas':
+        user.delete()
+        return redirect('index')
+
+    return render(request, 'accounts/delete_account.html')
 
 
 def register(request):
@@ -101,7 +89,6 @@ def register(request):
                     auth.login(request, user)
                     messages.success(request, "You are now logged in")
 
-                    validation_email(username)
                     return redirect('index')
 
         else:
