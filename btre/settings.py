@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'bootstrap4',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -87,7 +88,7 @@ DATABASES = {
         'NAME': 'btre',
         'USER': 'postgres',
         'PASSWORD': 'ezzahidilyas',
-        'HOST': 'localhost'
+        'HOST': ''
     }
 }
 
