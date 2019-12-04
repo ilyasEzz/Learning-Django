@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'realtors.apps.RealtorsConfig',
     'contacts.apps.ContactsConfig',
     'pages.apps.PagesConfig',
+    'api.apps.ApiConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -46,6 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'bootstrap4',
     'captcha',
+    'rest_framework',
+    'corsheaders',
+
 ]
 
 MIDDLEWARE = [
@@ -56,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'btre.urls'
@@ -150,6 +156,11 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
     messages.SUCCESS: 'success',
 }
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_URLS_REGEX = r'^/api/.*S'
+
 
 # Email settings: https://app.sendgrid.com
 # SEND_GRID_API_KEY = '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'
