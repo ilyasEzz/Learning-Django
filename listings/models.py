@@ -30,6 +30,10 @@ class Listings(models.Model):
     is_published = models.BooleanField(default=True)
     list_date = models.DateTimeField(default=datetime.now, blank=True)
 
+    @property
+    def get_comments(self):
+        return self.comments.all()
+
     # display the title in the  admin table
     def __str__(self):
         return self.title

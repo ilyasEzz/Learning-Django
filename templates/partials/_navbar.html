@@ -16,7 +16,7 @@
                 </li>
                 <li {% if 'about' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3"
                     {% endif %}>
-                    <a class="nav-link" href="{% url 'about' %}">О компаний</a>
+                    <a class="nav-link" href="{% url 'about' %}">О компании</a>
                 </li>
                 <li {% if 'listings' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3"
                     {% endif %}>
@@ -58,7 +58,7 @@
                 <li {% if 'register' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3"
                     {% endif %}>
                     <a class="nav-link" href="{% url 'register' %}">
-                        <i class="fas fa-user-plus"></i> Регтстрация</a>
+                        <i class="fas fa-user-plus"></i> Регистрация</a>
                 </li>
                 <li {% if 'login' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3"
                     {% endif %}>

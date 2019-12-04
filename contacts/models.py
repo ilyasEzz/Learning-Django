@@ -25,7 +25,7 @@ class Contact(models.Model):
 
 class Comment(models.Model):
     listings = models.ForeignKey(
-        Listings, on_delete=models.CASCADE, verbose_name='Объявление')
+        Listings, on_delete=models.CASCADE, related_name='comments', verbose_name='Объявление')
     author = models.CharField(max_length=30, verbose_name='Автор')
     content = models.TextField(verbose_name='Содержание')
     is_active = models.BooleanField(

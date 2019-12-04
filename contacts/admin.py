@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Contact
+from .models import Contact, Comment
 
 
 # Register your models here.
@@ -15,3 +15,4 @@ class ContactAdmin(admin.ModelAdmin):
 
 # register the changes
 admin.site.register(Contact, ContactAdmin)
+admin.site.register(Comment)
