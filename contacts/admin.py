@@ -13,6 +13,13 @@ class ContactAdmin(admin.ModelAdmin):
     search_fields = ('id', 'name', 'listing', 'email')
 
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'author', 'listings', 'created_at', 'is_active')
+    list_display_links = ('id', 'author')
+    list_per_page = 25
+    list_filter = ('author', 'listings', 'is_active', )
+
+
 # register the changes
 admin.site.register(Contact, ContactAdmin)
-admin.site.register(Comment)
+admin.site.register(Comment, CommentAdmin)
