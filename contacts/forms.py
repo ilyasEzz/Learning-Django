@@ -14,11 +14,6 @@ class UserCommentForm(forms.ModelForm):
         fields = ('author', 'content', )
 
 
-class GuestCommentForm(forms.ModelForm):
+class GuestCommentForm(UserCommentForm):
     captcha = CaptchaField(label='Введиде текст с картинки',
                            error_messages={'invalid': 'Неправильный текст'})
-
-    class Meta:
-        model = Comment
-        exclude = ('is_active',)
-        widgets = {'listings': forms.HiddenInput}
