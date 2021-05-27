@@ -49,6 +49,10 @@ INSTALLED_APPS = [
     'captcha',
     'rest_framework',
     'corsheaders',
+    'tinymce',
+
+    'marketing',
+    'posts'
 
 ]
 
