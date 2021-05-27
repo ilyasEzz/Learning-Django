@@ -7,6 +7,8 @@ from django.conf.global_settings import DEFAULT_FROM_EMAIL
 from django.template.loader import get_template
 
 from contacts.models import Contact
+from listings.models import Listings
+from django.db.models import Sum
 
 
 def login(request):
@@ -36,7 +38,7 @@ def dashboard(request):
         '-contact_date').filter(user_id=request.user.id)
 
     context = {
-        'contacts': user_contacts
+        'contacts': user_contacts,
     }
 
     return render(request, 'accounts/dashboard.html', context)

@@ -5,111 +5,115 @@
 | Welcome
 {% endblock %}
 
+{% block styles %}
+  <style>
+    .dark-overlay:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: black;
+      opacity: 0.6;
+      z-index: 1;
+    }
+    
+    .carousel-caption {
+      z-index: 2;
+    }
+  </style>
+{% endblock %}
+
 {% block content %}
-<!-- Showcase -->
-<section id="showcase">
-    <div class="container text-center">
-        <div class="home-search p-5">
-            <div class="overlay p-5">
-                <h1 class="display-4 mb-4">
-                    Поиск недвижимости
-                </h1>
+<!-- Карусель -->
+    <section id="myCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item dark-overlay active">
+            <!-- Изрброжения здесь -->
+            <img src="https://source.unsplash.com/random/1540x420">
 
-                <div class="search">
-                    <form action="{% url 'search' %}">
-                        <!-- Form Row 1 -->
-                        <div class="form-row">
-                            <div class="col-md-6 mb-3">
-                                <label class="sr-only">Ключевые слова</label>
-                                <input type="text" name="keywords" class="form-control"
-                                    placeholder="Ключевые слова (Район, Комнаты, Площадь...)">
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label class="sr-only">Район</label>
-                                <input type="text" name="city" class="form-control" placeholder="Район">
-                            </div>
-
-
-                        </div>
-                        <!-- Form Row 2 -->
-                        <div class="form-row">
-                            <div class="col-md-6 mb-3">
-                                <label class="sr-only">Комнаты</label>
-                                <select name="bedrooms" class="form-control">
-                                    <option selected="true" disabled="disabled">Комнаты (Все)</option>
-                                    {% for key, value in bedroom_choices.items %}
-                                    <option value="{{ key }}">{{ value }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <select name="price" class="form-control" id="type">
-                                    <option selected="true" disabled="disabled">Максимальная Цена (Любая)</option>
-                                    {% for key, value in price_choices.items %}
-                                    <option value="{{ key }}">{{ value }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                        <button class="btn btn-secondary btn-block mt-4" type="submit">Искать</button>
-                    </form>
-                </div>
+            <div class="container">
+              <div class="carousel-caption text-left">
+                <h1>Example headline.</h1>
+                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <p><a class="btn btn-lg btn-primary" href="{% url 'index' %}" role="button">Главная страница</a></p>
+              </div>
             </div>
+          </div>
+          <div class="carousel-item dark-overlay">
+            <!-- Изрброжения здесь -->
+           <img src="https://source.unsplash.com/random/1540x420">
+
+            <div class="container">
+              <div class="carousel-caption">
+                <h1>Another example headline.</h1>
+                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <p><a class="btn btn-lg btn-secondary" href="{% url 'listings' %}" role="button">Learn more</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item dark-overlay">
+            <!-- Изрброжения здесь -->
+            <img src="https://source.unsplash.com/random/1540x420">
+            <div class="container">
+              <div class="carousel-caption text-right">
+                <h1>One more for good measure.</h1>
+                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-</section>
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </section>
+
 
 {% include 'partials/_alert.html' %}
 <!-- Listings -->
 <section id="listings" class="py-5">
-    <div class="container">
-        <h3 class="text-center mb-3">Последние Объявления</h3>
+    <div class="container content-row">
+        <h3 class="text-center mb-3">Наши услуги</h3>
         <div class="row">
             <!-- Listing 1 -->
             {% if listings %}
             {% for listing in listings %}
 
             <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card listing-preview">
+                <div class="card listing-preview h-100">
                     <img class="card-img-top" src="{{ listing.photo_main.url }}" alt="">
                     <div class="card-img-overlay">
                         <h2>
-                            <span class="badge badge-secondary text-white">&#8381; {{ listing.price | intcomma }}</span>
+                            <span class="badge badge-secondary text-white">{{ listing.price | intcomma }} &#8381;/ месяц</span>
                         </h2>
                     </div>
                     <div class="card-body">
                         <div class="listing-heading text-center">
-                            <h4 class="text-primary">{{ listing.address }}</h4>
-                            <p>
-                                <i class="fas fa-map-marker text-secondary"></i> {{ listing.city }},
-                                {{ listing.zipcode}}</p>
+                            <h4 class="text-primary">{{ listing.title }}</h4>
+                            
                         </div>
                         <hr>
-                        <div class="row py-2 text-secondary">
-                            <div class="col-6">
-                                <i class="fas fa-th-large"></i> m<sup>2</sup>: {{ listing.square_metre}}</div>
-                            <div class="col-6">
-                                <i class="fas fa-car"></i> Гараж: {{ listing.garage }}</div>
-                        </div>
-                        <div class="row py-2 text-secondary">
-                            <div class="col-6">
-                                <i class="fas fa-bed"></i> Комнаты: {{ listing.bedrooms }}</div>
-                            <div class="col-6">
-                                <i class="fas fa-bath"></i> Туалет: {{ listing.bathrooms }}</div>
-                        </div>
-                        <hr>
-                        <div class="row py-2 text-secondary">
-                            <div class="col-12">
-                                <i class="fas fa-user"></i> {{ listing.realtor }}</div>
-                        </div>
-                        <div class="row text-secondary pb-2">
-                            <div class="col-6">
-                                <i class="fas fa-clock"></i> {{ listing.list_date | naturalday }}</div>
-                        </div>
-                        <hr>
-                        <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-block">Узнать Больше</a>
+                     
+                        <p class="py-2  pb-2">
+                            {{ listing.description|truncatechars:200 }}
+                        </p>
                     </div>
+                    <div class="card-footer">
+                          <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-block">Узнать Больше</a>
+                   </div>
                 </div>
             </div>
 
@@ -130,25 +134,19 @@
                 <i class="fas fa-comment fa-4x mr-4"></i>
                 <hr>
                 <h3>Консалтинговые услуги</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae,
-                    provident iste consequatur
-                    hic dignissimos ratione ea quae.</p>
+
             </div>
             <div class="col-md-4">
                 <i class="fas fa-money-bill-alt fa-4x mr-4"></i>
                 <hr>
                 <h3>Конкурентные цены</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae,
-                    provident iste consequatur
-                    hic dignissimos ratione ea quae.</p>
+
             </div>
             <div class="col-md-4">
-                <i class="fas fa-home fa-4x mr-4"></i>
+                <i class="fas fa-user-shield fa-4x mr-4"></i>
                 <hr>
-                <h3>Аренда и Продажа</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae,
-                    provident iste consequatur
-                    hic dignissimos ratione ea quae.</p>
+                <h3>Техническое обслужевание</h3>
+              
             </div>
         </div>
     </div>

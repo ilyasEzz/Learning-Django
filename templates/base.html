@@ -14,8 +14,11 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!-- LightBox -->
     <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
-    <title>ВТомске {% block title %}{% endblock %}</title>
+    <title>Эгида {% block title %}{% endblock %}</title>
 </head>
+
+{% block styles %}
+{% endblock %}
 
 <body>
     {% include 'partials/_topbar.html'%}

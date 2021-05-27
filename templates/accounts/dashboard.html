@@ -22,7 +22,7 @@
                     <a href="{% url 'index' %}">
                         <i class="fas fa-home"></i> Главная</a>
                 </li>
-                <li class="breadcrumb-item active"> мой Дом</li>
+                <li class="breadcrumb-item active"> мой объявления</li>
             </ol>
         </nav>
     </div>
@@ -40,7 +40,8 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Дом</th>
+                            <th scope="col">Мои объявления</th>
+                            <th scope="col">Стоймость</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -49,17 +50,24 @@
                         <tr>
                             <td>{{ contact.id}}</td>
                             <td>{{ contact.listing }}</td>
-                            <td>
-                                <a class="btn btn-light" href="{% url 'listing' contact.listing_id %}">Посмотреть
-                                    объявления</a>
+                            <td class="listing_price" >
+                                    {{ contact.listing_id.price }}
                             </td>
                         </tr>
                         {% endfor %}
+                        <tr class="bg-secondary text-white font-weight-bold">
+                            <td></td>
+                            <td>Всего</td>
+                            <td id="total_listing_price"></td>
+                        </tr>
                     </tbody>
                 </table>
+        
                 {% else %}
                 <p>Вы не сделали никаких запросов</p>
                 {% endif %}
+
+               
             </div>
         </div>
     </div>

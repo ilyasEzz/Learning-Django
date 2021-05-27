@@ -3,7 +3,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .choices import bedroom_choices, price_choices
 from .models import Listings
-from contacts.forms import UserCommentForm, GuestCommentForm
+from contacts.forms import UserCommentForm
 
 
 # Create your views here.
@@ -33,10 +33,7 @@ def listing(request, listing_id):
     # but it raises Http404 instead of the model’s DoesNotExist exception
     listing = get_object_or_404(Listings, pk=listing_id)
 
-    if request.user.is_authenticated:
-        form = UserCommentForm(request.POST or None)
-    else:
-        form = GuestCommentForm(request.POST or None)
+    form = UserCommentForm(request.POST or None)
 
     if request.method == "POST":
         if form.is_valid():
@@ -60,24 +57,24 @@ def search(request):
             queryset_listings = queryset_listings.filter(
                 description__icontains=keywords)
 
-    if 'city' in request.GET:
-        city = request.GET['city']
-        if city:
-            # query
-            queryset_listings = queryset_listings.filter(city__iexact=city)
+    # if 'city' in request.GET:
+    #     city = request.GET['city']
+    #     if city:
+    #         # query
+    #         queryset_listings = queryset_listings.filter(city__iexact=city)
 
-    if 'bedrooms' in request.GET:
-        bedrooms = request.GET['bedrooms']
-        if bedrooms:
-            # lte == less than or exact
-            queryset_listings = queryset_listings.filter(
-                bedrooms__lte=bedrooms)
+    # if 'bedrooms' in request.GET:
+    #     bedrooms = request.GET['bedrooms']
+    #     if bedrooms:
+    #         # lte == less than or exact
+    #         queryset_listings = queryset_listings.filter(
+    #             bedrooms__lte=bedrooms)
 
-    if 'price' in request.GET:
-        price = request.GET['price']
-        if price:
-            # lte == less than or exact
-            queryset_listings = queryset_listings.filter(price__lte=price)
+    # if 'price' in request.GET:
+    #     price = request.GET['price']
+    #     if price:
+    #         # lte == less than or exact
+    #         queryset_listings = queryset_listings.filter(price__lte=price)
 
     context = {
         'listings': queryset_listings,

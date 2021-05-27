@@ -85,71 +85,19 @@
               <img src="{{ listing.photo_6.url }}" alt="" class="img-fluid">
             </a>
           </div>
+          {% endif %}
         </div>
-        {% endif %}
+        
 
         <!-- Fields -->
         <div class="row mb-5 fields">
-          <div class="col-md-6">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-money-bill-alt"></i> Цена:
-                <span class="float-right">${{ listing.price }}</span>
-              </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-bed"></i> Bedrooms:
-                <span class="float-right">{{ listing.bedrooms }}</span>
-              </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-bath"></i> Комнаты:
-                <span class="float-right">{{ listing.bathrooms }}</span>
-              </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-car"></i> Гараж:
-                <span class="float-right">{{ listing.garage }}
-                </span>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-6">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Плошадь:
-                <span class="float-right">{{ listing.square_metre }}</span>
-              </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-square"></i> Lot Size:
-                <span class="float-right">{{ listing.lot_size }}
-                </span>
-              </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-calendar"></i>Объявленно:
-                <span class="float-right">{{ listing.list_date | naturalday }}</span>
-              </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-bed"></i> Риэлтор:
-                <span class="float-right">{{ listing.realtor.name }}
-                </span>
-              </li>
-
-
-            </ul>
+          <div class="col">
+           <p class="lead"> {{ listing.description }} </p>
           </div>
         </div>
 
         <section class="comments">
-          <form action="" method="POST">
-            {% csrf_token %}
-            <div class="row">
-              <div class="form-group col-md-12">
-                {{ form }}
-              </div>
-              <div class="form-group col-md-12">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </div>
-
-          </form>
+          
           <div class="row">
             <div class="col-md-10">
 
@@ -172,21 +120,34 @@
               </div>
             </div>
           </div>
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="row">
+              <div class="form-group col-md-12">
+                {{ form }}
+              </div>
+              <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-primary">Оставить Отзыв</button>
+              </div>
+            </div>
 
+          </form>
         </section>
 
       </div>
+
       <div class="col-md-3">
         <div class="card mb-3">
           <img class="card-img-top" src="{{ listing.realtor.photo.url }}" alt="Seller of the month">
           <div class="card-body">
-            <h5 class="card-title">Ответственный Риэлтор</h5>
+            <h5 class="card-title">Ответственный Специалист</h5>
             <h6 class="text-secondary">{{ listing.realtor }}</h6>
           </div>
+          <button class="btn-primary btn-block btn-lg" 
+          data-toggle="modal" data-target="#inquiryModal">Сделать Запрос</button>
         </div>
-        <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Сделать
-          Запрос</button>
       </div>
+      
     </div>
   </div>
 </section>
@@ -212,7 +173,7 @@
           <input type="hidden" name="realtor_email" value="{{ listing.realtor.email }}">
           <input type="hidden" name="listing_id" value="{{ listing.id }}">
           <div class="form-group">
-            <label for="property_name" class="col-form-label">Дом:</label>
+            <label for="property_name" class="col-form-label">Услуга:</label>
             <input type="text" name="listing" class="form-control" value="{{ listing.title }}">
           </div>
           <div class="form-group">

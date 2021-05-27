@@ -1,5 +1,9 @@
 <!-- Footer -->
-<footer id="main-footer" class="py-4 bg-primary text-white text-center">
+<footer id="main-footer" 
+    class=" py-4 bg-primary text-white text-center
+        {% if request.get_full_path ==  '/accounts/dashboard' or  request.get_full_path ==   '/accounts/login' %} 
+            fixed-bottom
+        {% endif %}">
     Copyright &copy;
-    <span class="year"></span> ВТомске
+    <span class="year"></span> ООО Эгида
 </footer>

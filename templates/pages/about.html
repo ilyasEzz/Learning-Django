@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row text-center">
             <div class="col-md-12">
-                <h1 class="display-4">О компаний "ВТомске"</h1>
+                <h1 class="display-4">О компаний "ЭГИДА"</h1>
             </div>
         </div>
     </div>
@@ -33,21 +33,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <h2>Мы находим для вас лучшее дома</h2>
-                <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur!</p>
+                <h2>Электромонтажные работы</h2>
                 <img src="{% static 'img/about.jpg' %}" alt="">
-                <p class="mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis esse officia
-                    repudiandae ad saepe ex, amet
-                    neque quod accusamus rem quia magnam magni dolorum facilis ullam minima perferendis? Exercitationem
-                    at quaerat
-                    commodi id libero eveniet harum perferendis laborum molestias quia.</p>
+                <p class="lead mt-4">Электромонтажные работы внутри и снаружи помещения. Профессиональные электрики монтажной компании «Эгида», выполняют качественно монтаж электропроводки и электрооборудования в офисе, торговом центре, магазине, производственных помещениях, квартире или жилом доме. Работаем напрямую с заказчиком и по субподряду по минимальным ценам. Конфиденциальность информации гарантируем.</p>
             </div>
             {% for realtor in mvp_realtor %}
             <div class="col-md-4">
                 <div class="card">
                     <img class="card-img-top" src="{{ realtor.photo.url }}" alt="Seller of the month">
                     <div class="card-body">
-                        <h5 class="card-title">Топ риэлтор</h5>
+                        <h5 class="card-title">Топ специалист</h5>
                         <h6 class="text-secondary">{{ realtor.name }}</h6>
                         <p class="card-text">Энергичный и инициативный, стремится к постоянному обучению </p>
                     </div>
@@ -60,10 +55,12 @@
 
 <!-- Work -->
 <section id="work" class="bg-dark text-white text-center">
-    <h2 class="display-4">Мы работемь для вас</h2>
-    <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem velit aperiam, unde aliquid at similique!</h4>
+    <h2 class="display-4">Типовая стоимость :
+    </h2>
+    <p class="lead">​В стоимость работ не включена стоимость расходных материалов.
+        Работы, с нестандартными материалами и не предусмотренные данным прейскурантом, выполняются по договорным ценам.!</p>
     <hr>
-    <a href="{% url 'listings' %}" class="btn btn-secondary text-white btn-lg">Посмотреть котолог</a>
+    <a href="{% url 'listings' %}" class="btn btn-secondary text-white btn-lg">Посмотреть услуг</a>
 </section>
 
 <!-- Team -->
