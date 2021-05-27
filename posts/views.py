@@ -3,6 +3,9 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views.generic import View, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
 
 from .forms import CommentForm, PostForm
 from .models import Post, Author, PostView
@@ -67,7 +70,7 @@ class IndexView(View):
             'latest': latest,
             'form': self.form
         }
-        return render(request, 'index.html', context)
+        return render(request, 'posts/index.html', context)
 
     def post(self, request, *args, **kwargs):
         email = request.POST.get("email")
@@ -93,13 +96,13 @@ def index(request):
         'latest': latest,
         'form': form
     }
-    return render(request, 'index.html', context)
+    return render(request, 'post/index.html', context)
 
 
 class PostListView(ListView):
     form = EmailSignupForm()
     model = Post
-    template_name = 'blog.html'
+    template_name = 'post/blog.html'
     context_object_name = 'queryset'
     paginate_by = 1
 
@@ -135,12 +138,12 @@ def post_list(request):
         'category_count': category_count,
         'form': form
     }
-    return render(request, 'blog.html', context)
+    return render(request, 'post/blog.html', context)
 
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'post.html'
+    template_name = 'post/post.html'
     context_object_name = 'post'
     form = CommentForm()
 
@@ -198,12 +201,13 @@ def post_detail(request, id):
         'category_count': category_count,
         'form': form
     }
-    return render(request, 'post.html', context)
+    return render(request, 'post/post.html', context)
 
 
+@method_decorator(login_required, name='dispatch')
 class PostCreateView(CreateView):
     model = Post
-    template_name = 'post_create.html'
+    template_name = 'post/post_create.html'
     form_class = PostForm
 
     def get_context_data(self, **kwargs):
@@ -234,12 +238,12 @@ def post_create(request):
         'title': title,
         'form': form
     }
-    return render(request, "post_create.html", context)
+    return render(request, "posts/post_create.html", context)
 
 
 class PostUpdateView(UpdateView):
     model = Post
-    template_name = 'post_create.html'
+    template_name = 'post/post_create.html'
     form_class = PostForm
 
     def get_context_data(self, **kwargs):
@@ -274,13 +278,13 @@ def post_update(request, id):
         'title': title,
         'form': form
     }
-    return render(request, "post_create.html", context)
+    return render(request, "post/post_create.html", context)
 
 
 class PostDeleteView(DeleteView):
     model = Post
     success_url = '/blog'
-    template_name = 'post_confirm_delete.html'
+    template_name = 'post/post_confirm_delete.html'
 
 
 def post_delete(request, id):
